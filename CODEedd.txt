@@ -1,0 +1,1757 @@
+JAVA FILE 1:
+
+package com.example.teaching2;
+
+
+// first two imports are by default
+// others namely Button , edittext, view and Toast are for repective claases used here
+// create variable b1,b2,and e1 and attach them to respective components created
+//attch xml file by coomand setContentView(R.layout.activity_main);
+//attach button listner through button1.setOnClickListener this is done by definie a
+// inner class and the method public void onClick(View view) {
+// this method is called when we click the buuton
+//one button changes the text in test box and other calls new activity
+// tast class is used for dispalying message
+// intent class is for atarting another activity
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Button;
+import android.view.View;
+import android.widget.Toast;
+import android.content.Intent;
+public class MainActivity extends AppCompatActivity {
+    Button b22,b23;
+    Button b2;
+    EditText e1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            b22 = (Button) findViewById(R.id.button22);
+            b23 = (Button) findViewById(R.id.button23);
+
+
+            b22.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent inent = new Intent(MainActivity.this, Main2Activity.class);
+
+
+                    // calling an activity using <intent-filter> action name
+                    //  Intent inent = new Intent("com.hmkcode.android.ANOTHER_ACTIVITY");
+
+                    startActivity(inent);
+
+
+                }
+
+
+            });
+            b23.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent inent = new Intent(MainActivity.this, Main4Activity.class);
+
+
+                    // calling an activity using <intent-filter> action name
+                    //  Intent inent = new Intent("com.hmkcode.android.ANOTHER_ACTIVITY");
+
+                    startActivity(inent);
+
+
+                }
+
+
+            });
+
+
+
+
+            /*            b1 = (Button) findViewById(R.id.button1);
+            b2 = (Button) findViewById(R.id.button2);
+            e1 = (EditText) findViewById(R.id.text1);
+            Toast.makeText(getApplicationContext(), "method1",
+                    Toast.LENGTH_SHORT).show();
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "button oe clicked",
+                            Toast.LENGTH_SHORT).show();
+                  /*  String data = e1.getText().toString();
+                    if (data.equals("Yellow"))
+                        data="Hello";
+                    else
+                        data = "yellow";
+                    e1.setText(data);
+
+
+                    if(e1.getText().toString().equals("hello"))
+                        e1.setText("yellow");
+                    else
+                        e1.setText("Hello");
+
+
+                }
+            });
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent inent = new Intent(MainActivity.this, Main2Activity.class);
+
+
+                    // calling an activity using <intent-filter> action name
+                    //  Intent inent = new Intent("com.hmkcode.android.ANOTHER_ACTIVITY");
+
+                    startActivity(inent);
+
+
+                }
+
+
+            });*/
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getApplicationContext(), e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+XML FILE 1:
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/Tview21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="\nDIET ANALYSER"
+        android:textColor="#e8e9e9"
+        android:drawableTop="@drawable/food"
+        />
+
+    <Button
+        android:id="@+id/button22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="\neENTER DATA"
+        android:textColor="#e8e9e9"
+        />
+    <Button
+
+        android:id="@+id/button23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="ANALYSIS"
+        android:textColor="#e8e9e9"/>
+
+
+
+</LinearLayout>
+JAVA FILE 2:
+package com.example.teaching2;
+
+
+import  android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+public class Main2Activity extends AppCompatActivity {
+    Button b22,b23,b24;
+    TextView T1;
+    ArrayList<String> basiccals= new ArrayList<String>();
+
+    ArrayList<String> basicitems = new ArrayList<String>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        T1= (TextView) findViewById(R.id.textView3);
+        b22 = (Button) findViewById(R.id.button31);
+        b23 = (Button) findViewById(R.id.button32);
+
+        b22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                intent.putExtra("mykey", "1");
+                startActivity(intent);
+
+
+
+
+
+            }
+
+
+        });
+
+        b23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+                intent.putExtra("mykey", "2");
+                startActivity(intent);
+
+
+
+
+            }
+
+
+        });
+
+
+        filldata();
+
+
+        // filldata("Items1",1);
+        // filldata("Items2",2);
+    }
+
+    void fillbasicdata1() {
+        try {
+            basicitems.add("Select an item");
+            basiccals.add("0");
+            basicitems.add("SAMOSA    ");
+            basiccals.add("162");
+            basicitems.add("Sabudana Wada        ");
+            basiccals.add("126");
+            basicitems.add("Dosa   ");
+            basiccals.add("387");
+            basicitems.add("Dhokla(per 100gms) ");
+            basiccals.add("150");
+            basicitems.add("Masala-Doasa");
+            basiccals.add("250");
+            basicitems.add("Idli        ");
+            basiccals.add("50");
+
+
+        }
+
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"basic",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    // called first
+
+    void     checkdata()
+    {
+        try {
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            // mydatabase.execSQL("CREATE TABLE IF NOT EXISTS " +'"' + tablename + '"' + "(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from itemone ", null);
+            Integer i = resultSet.getCount();
+            T1.setText(i.toString());
+        }
+        catch (Exception e)
+        {
+            T1.setText(e.getMessage());
+        }
+    }
+    void fillbasicdata2() {
+        try {
+            basicitems.clear();
+            basiccals.clear();
+            basicitems.add("Select an item");
+            basiccals.add("0");
+            basicitems.add("Chowmen      ");
+            basiccals.add("250");
+            basicitems.add("Hot and Sour Soup   ");
+            basiccals.add("50");
+            basicitems.add("Spring Rolls  ");
+            basiccals.add("200");
+            basicitems.add("Chinise Rice");
+            basiccals.add("150");
+            basicitems.add("Sweet and Sour Veg");
+            basiccals.add("250");
+            basicitems.add("Noodles      ");
+            basiccals.add("50");
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"basic",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    void filldata()
+    {
+
+        try {
+
+
+            String item = "test1";
+            String cal = "test2";
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS itemone(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from  itemone ", null);
+            if(resultSet.getCount() < 5) {
+                fillbasicdata1();
+
+                for (int i = 0; i < basicitems.size(); i++) {
+                    item = basicitems.get(i);
+                    cal = basiccals.get(i);
+                    String A = "INSERT INTO  itemone (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal + '"' + ");";
+                    mydatabase.execSQL(A);
+                }
+
+            }
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS itemtwo(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            resultSet = mydatabase.rawQuery("Select * from  itemtwo ", null);
+            fillbasicdata2();
+            if(resultSet.getCount() < 5) {
+
+                for (int i = 0; i < basicitems.size(); i++) {
+                    item = basicitems.get(i);
+                    cal = basiccals.get(i);
+                    String A = "INSERT INTO  itemone (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal + '"' + ");";
+                    mydatabase.execSQL(A);
+                }
+
+
+
+                mydatabase.close();
+
+            }
+            //'String A = "INSERT INTO items (ITEMNAME,ITEMVALUE) values (" + '"' + name + '"' + "," + '"' + data + '"' + ");";
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "fill data",
+                    Toast.LENGTH_LONG).show();
+
+
+        }
+
+
+    }
+
+
+}
+XML FILE 2:
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="SELECT CANTEEN"
+        android:textColor="#e8e9e9"
+         />
+
+    <Button
+        android:id="@+id/button31"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="\nCanteen 1"
+        android:textColor="#e8e9e9"
+        />
+    <Button
+        android:id="@+id/button32"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#d9a950"
+        android:text="\nCanteen 2"
+        android:textColor="#e8e9e9"/>
+
+
+
+</LinearLayout>
+JAVA FILE 3:
+package com.example.teaching2;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import  android.widget.ListView;
+import android.widget.DatePicker;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.ArrayList;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+
+
+
+
+
+
+public class Main3Activity extends AppCompatActivity {
+
+    Spinner day;
+    Spinner month;
+    Spinner year;
+    Spinner qty;
+    Spinner item;
+    Boolean isselectd=false;
+    String selected="Not Selected Properly";
+    ArrayList<String> dayl;
+    ArrayList<String> monthl;
+    ArrayList<String> yearl;
+    ArrayList<String> qtyl;
+    ArrayList<String> listl;
+    ArrayList <String> basicdata;
+    ArrayList<String> basicitems;
+    ArrayList<String> basiccals;
+    ArrayAdapter<String>  dataAdaperlist;
+    TextView t1;
+    Button save;
+    TextView tr;
+    String sday=" ";
+    String smonth=" ";
+    String syear="  ";
+    String sitem=" ";
+    String  sqty= "0";
+    String scal=  " ";
+    String sfood;
+    String sall = " ";
+    int calindex=0;
+    Integer totalcals=0;
+    boolean issday=false;
+    boolean issmonth=false;
+    boolean issyear=false;
+    boolean issall=false;
+    boolean isqty=false;
+    boolean isfood=false;
+    String  datetoday;
+    String dateanyday;
+    String prev= "";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        try {
+
+
+            super.onCreate(savedInstanceState);
+
+            setContentView(R.layout.activity_main3);
+            Toast.makeText(getApplicationContext(), "Message",
+                    Toast.LENGTH_SHORT).show();
+
+
+            Intent X= getIntent();
+            prev= X.getStringExtra("mykey");
+
+
+
+
+            day = (Spinner) findViewById(R.id.spinnerday);
+            month = (Spinner) findViewById(R.id.spinnermonth);
+            year = (Spinner) findViewById(R.id.spinneryear);
+            qty = (Spinner) findViewById(R.id.spinnerqty);
+            item = (Spinner) findViewById(R.id.spinneritem);
+            t1 = (TextView) findViewById(R.id.textView);
+            tr = (TextView) findViewById(R.id.textView2);
+
+            save= (Button)  findViewById(R.id.button);
+            tr.setText(selected);
+            dayl = new ArrayList<String>();
+            monthl = new ArrayList<String>();
+            yearl = new ArrayList<String>();
+            qtyl = new ArrayList<String>();
+            listl = new ArrayList<String>();
+            basiccals = new ArrayList<String>();
+            basicitems = new ArrayList<String>();
+            basicdata = new ArrayList<String>();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            datetoday = sdf.format(new Date());
+
+            t1.setText(datetoday);
+
+
+            Integer i;
+            dayl.add("Select Day");
+            for (i = 1; i <= 31; i++) {
+                String s= i.toString();
+                if(s.length()==1)
+                    s="0"+s;
+                dayl.add(s);
+            }
+            monthl.add("Select Month");
+            for (i = 1; i <= 12; i++) {
+                String s= i.toString();
+                if(s.length()==1)
+                    s="0"+s;
+                monthl.add(s);
+            }
+            yearl.add("Select Year");
+            for (i = 2019; i <= 2050; i++) {
+                yearl.add(i.toString());
+            }
+            qtyl.add(" Select quantity");
+            for (i = 1; i <= 100; i++) {
+                qtyl.add(i.toString());
+            }
+            for (i = 1; i <= 100; i++) {
+                listl.add(i.toString());
+            }
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    savedata();
+
+                }
+
+
+            });
+
+            dataAdaperlist = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, basicitems);
+            dataAdaperlist.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            item.setAdapter(dataAdaperlist);
+            ArrayAdapter<String> dataAdapterday = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, dayl);
+            dataAdapterday.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            day.setAdapter(dataAdapterday);
+
+            ArrayAdapter<String> dataAdaptermonth = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, monthl);
+            dataAdaptermonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            month.setAdapter(dataAdaptermonth);
+            ArrayAdapter<String> dataAdapteryear = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, yearl);
+            dataAdapteryear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            year.setAdapter(dataAdapteryear);
+            ArrayAdapter<String> dataAdapterqty = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, qtyl);
+            dataAdapterqty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            qty.setAdapter(dataAdapterqty);
+            day.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            day.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+
+                            if(position==0) {
+                                sday = "";
+                                issday=false;
+                            }
+                            else {
+                                sday = dayl.get(position);
+                                issday=true;
+
+                            }
+                            testvalid();
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "nothing selected",
+
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            month.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+
+                            smonth=monthl.get(position);
+                            if(position==0) {
+                                smonth = "";
+                                issmonth=false;
+                            }
+                            else{
+                                smonth=monthl.get(position);
+                                issmonth=true;
+
+                            }
+                            testvalid();
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "Nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            year.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            syear=yearl.get(position);
+                            if(position==0) {
+                                syear = "";
+                                issyear=false;
+                            }
+                            else{
+                                syear=yearl.get(position);
+                                issyear=true;
+
+                            }
+                            testvalid();
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "Nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+            qty.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            scal= " ";
+                            if(position==0)
+                            {
+                                sqty="0";
+                                isqty=false;
+                            }
+                            else {
+                                sqty = qtyl.get(position);
+                                isqty=true;
+                            }
+
+
+                            if(isqty==true && isfood==true)
+                                issall=true;
+                            else
+                                issall=false;
+
+                            String S= " ";
+                            totalcals=Integer.parseInt(sqty)*Integer.parseInt(basiccals.get(calindex));
+                            S="Item ="+ sfood + "Qty="+ sqty +"calories"+totalcals.toString() ;
+                            scal=basiccals.get(calindex);
+                            if(!issall)
+                                S=S+"Not fully selected";
+
+                            tr.setText(S);
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            item.setOnItemSelectedListener(
+                    new OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            //         Toast.makeText(getApplicationContext(), pos.toString(),
+                            //               Toast.LENGTH_SHORT).show();
+                            calindex=position;
+                            if(position==0)
+                            {
+                                sfood="";
+                                isfood=false;
+                            }
+                            else {
+                                sfood = basicitems.get(position);
+                                isfood=true;
+                            }
+
+                            if(isqty==true && isfood==true)
+                                issall=true;
+                            else
+                                issall=false;
+                            totalcals=Integer.parseInt(sqty)*Integer.parseInt(basiccals.get(calindex));
+                            String S="Item ="+ sfood + "Qty="+ sqty +"calories"+totalcals.toString() ;
+
+                            if(!issall)
+                                S=S+"Not fully selected";
+
+                            tr.setText(S);
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "Nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+
+
+
+            // Set the Adapter
+
+
+            // Set the ClickListener for Spinner
+
+
+            if(prev.equals("1"))
+                filldata1();
+            if(prev.equals("2"))
+                filldata2();
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"main",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    void fillbasicdata1() {
+        try {
+            basicitems.add("Select an item");
+            basiccals.add("0");
+            basiccals.add("126");
+            basicitems.add("Aloo Paratha        ");
+            basiccals.add("200");
+            basicitems.add("Samosa   ");
+            basiccals.add("200");
+            basicitems.add("Sada-Doasa ");
+            basiccals.add("150");
+            basicitems.add("Masala-Doasa");
+            basiccals.add("250");
+            basicitems.add("Idli        ");
+            basiccals.add("50");
+            dataAdaperlist.notifyDataSetChanged();
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"basic",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    // called first
+    void fillbasicdata2() {
+        try {
+            basicitems.add("Select an item");
+            basiccals.add("0");
+            basicitems.add("chow Min   ");
+            basiccals.add("150");
+            basicitems.add("Pav        ");
+            basiccals.add("50");
+            basicitems.add("Wada Pav   ");
+            basiccals.add("200");
+            basicitems.add("Sada-Doasa ");
+            basiccals.add("150");
+            basicitems.add("Masala-Doasa");
+            basiccals.add("250");
+            basicitems.add("Idli        ");
+            basiccals.add("50");
+            dataAdaperlist.notifyDataSetChanged();
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"basic",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    void filldata1()
+    {
+        try {
+
+
+            String item = "test1";
+            String cal = "test2";
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS ITEMSA(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from ITEMSA", null);
+            int i = resultSet.getCount();
+            if (i > 5) {
+                Toast.makeText(getApplicationContext(), "data base exists",
+                        Toast.LENGTH_SHORT).show();
+
+                getdata1();
+                return;
+
+            }
+            fillbasicdata1();
+            for (i = 0; i < basicitems.size(); i++) {
+                item = basicitems.get(i);
+                cal = basiccals.get(i);
+                String A = "INSERT INTO ITEMSA (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal + '"' + ");";
+                mydatabase.execSQL(A);
+            }
+
+            mydatabase.close();
+
+            //'String A = "INSERT INTO items (ITEMNAME,ITEMVALUE) values (" + '"' + name + '"' + "," + '"' + data + '"' + ");";
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"fill data",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+
+    }
+    void filldata2()
+    {
+        try {
+
+
+            String item = "test1";
+            String cal = "test2";
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS ITEMSB(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from ITEMSB", null);
+            int i = resultSet.getCount();
+            if (i > 5) {
+                Toast.makeText(getApplicationContext(), "data base exists",
+                        Toast.LENGTH_SHORT).show();
+
+                getdata2();
+                return;
+
+            }
+            fillbasicdata2();
+            for (i = 0; i < basicitems.size(); i++) {
+                item = basicitems.get(i);
+                cal = basiccals.get(i);
+                String A = "INSERT INTO ITEMSB (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal + '"' + ");";
+                mydatabase.execSQL(A);
+            }
+
+            mydatabase.close();
+
+            //'String A = "INSERT INTO items (ITEMNAME,ITEMVALUE) values (" + '"' + name + '"' + "," + '"' + data + '"' + ");";
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"fill data",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+
+    }
+    void getdata1()
+    {
+        try {
+            basiccals.clear();
+            basicitems.clear();
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS ITEMSA(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from ITEMSA", null);
+            int i = resultSet.getCount();
+
+            int j = 1;
+            String X1, X2;
+            if (i >= 1) {
+                resultSet.moveToFirst();
+                listl.clear();
+
+                X1 = resultSet.getString(0);
+                X2 = resultSet.getString(1);
+                basicitems.add(X1);
+                basiccals.add(X2);
+                for (j = 1; j <= i - 1; j++) {
+                    resultSet.moveToNext();
+                    X1 = resultSet.getString(0);
+                    X2 = resultSet.getString(1);
+                    basicitems.add(X1);
+                    basiccals.add(X2);
+
+
+                }
+                dataAdaperlist.notifyDataSetChanged();
+            }
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"getdaa",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+    void getdata2()
+    {
+        try {
+            basiccals.clear();
+            basicitems.clear();
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOTHING EXISTS ITEMSB(ITEMNAME VARCHAR,ITEMVALUE VARCHAR);");
+            Cursor resultSet = mydatabase.rawQuery("Select * from ITEMSB", null);
+            int i = resultSet.getCount();
+
+            int j = 1;
+            String X1, X2;
+            if (i >= 1) {
+                resultSet.moveToFirst();
+                listl.clear();
+
+                X1 = resultSet.getString(0);
+                X2 = resultSet.getString(1);
+                basicitems.add(X1);
+                basiccals.add(X2);
+                for (j = 1; j <= i - 1; j++) {
+                    resultSet.moveToNext();
+                    X1 = resultSet.getString(0);
+                    X2 = resultSet.getString(1);
+                    basicitems.add(X1);
+                    basiccals.add(X2);
+
+
+                }
+                dataAdaperlist.notifyDataSetChanged();
+            }
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage()+"getdaa",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    void testvalid() {
+        if (issday && issmonth && issyear)
+            issall = true;
+        else
+            issall = false;
+        if (issall == true) {
+
+            //t1.setText(sday + "/" + smonth + "/" + smonth);
+            boolean result = checkdate(Integer.parseInt(syear), Integer.parseInt(smonth), Integer.parseInt(sday));
+            if (result == true) {
+                t1.setText(syear + "-" + smonth + "-" + sday);
+                issall = false;
+            }
+        }
+    }
+
+
+    boolean checkdate(int year, int month, int day)
+    {
+
+        int [] monthdays= { 31,28,31,30,31,30,31,31,30,31,30,31} ;
+
+        if (month==2) {
+            if (year % 400 == 0)
+                monthdays[1]= 29;
+            else if( year % 4 ==0 &&  year % 100 != 0)
+                monthdays[1] =29;
+        }
+
+
+        if( day <1 || day >  monthdays[month-1])
+            return false;
+
+        return true;
+
+
+    }
+
+    int savedata()
+    {
+        try {
+            String mydate;
+
+            if (issall) {
+                mydate = t1.getText().toString();
+            } else {
+                tr.setText("can not save fill all data");
+                return 0;
+            }
+
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOTHING EXISTS mydata(bdate date, ITEMNAME VARCHAR,ITEMVALUE INT, ITEMQTY INT);");
+            String Q = "INSERT INTO mydata (bdate,ITEMNAME,ITEMVALUE,ITEMQTY  ) values (";
+            int myqty = Integer.parseInt(sqty);
+            Q = Q + '"' + mydate + '"' + ",";
+            Q = Q + '"' + sfood + '"' + ",";
+            Q = Q +  scal  + ",";
+            Q = Q + myqty + ");";
+            mydatabase.execSQL(Q);
+            mydatabase.close();
+        }
+        catch (Exception e) {
+
+        }
+        return  1;
+    }
+
+}
+XML FILE 3:
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="TextView"
+        android:background="#d9a950"
+        android:textColor="#e8e9e9"
+        android:textSize="25dp"
+        android:layout_marginVertical="20dp"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+
+        />
+
+    <Spinner
+        android:id="@+id/spinnermonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+
+        />
+
+    <Spinner
+        android:id="@+id/spinneryear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        />
+
+
+    <Spinner
+        android:id="@+id/spinneritem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+                />
+
+    <Spinner
+        android:id="@+id/spinnerqty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="TextView"
+        android:textSize="15dp"
+        android:layout_marginVertical="10dp"
+        />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:layout_marginVertical="10dp"
+        />
+
+
+</LinearLayout>
+JAVA FILE 4:
+package com.example.teaching2;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ListView;
+import java.util.ArrayList;
+import android.widget.Button;
+import android.widget.EditText;
+public class Main4Activity extends AppCompatActivity {
+    ListView  L;
+    ArrayList<String> AL= new ArrayList<>();
+    Button b1;
+    String smonth= " ";
+    String syear= " ";
+    Spinner year;
+    TextView msg;
+    Spinner month;
+    boolean issmonth=false;
+    boolean issyear=false;
+    ArrayList<String> monthl;
+    ArrayList<String> yearl;
+
+    String query="";
+    ArrayAdapter<String> dataAdapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Integer counting;
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main4);
+            L = (ListView) findViewById(R.id.mylist);
+            year = (Spinner) findViewById(R.id.ed1);
+            month = (Spinner) findViewById(R.id.ed2);
+            b1 = (Button) findViewById(R.id.button51);
+
+            msg=(TextView) findViewById(R.id.v1);
+            Integer i;
+            monthl= new ArrayList<String>();
+            yearl=new ArrayList<String>();
+
+            monthl.add("Select Month");
+            for (i = 1; i <= 12; i++) {
+                String s= i.toString();
+                if(s.length()==1)
+                    s="0"+s;
+                monthl.add(s);
+            }
+            yearl.add("Select Year");
+            for (i = 2019; i <= 2050; i++) {
+                yearl.add(i.toString());
+            }
+            ArrayAdapter<String> dataAdaptermonth = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, monthl);
+            dataAdaptermonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            month.setAdapter(dataAdaptermonth);
+            ArrayAdapter<String> dataAdapteryear = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, yearl);
+            dataAdapteryear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            year.setAdapter(dataAdapteryear);
+            month.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+
+                            smonth=monthl.get(position);
+                            if(position==0) {
+                                smonth = "";
+                                issmonth=false;
+                            }
+                            else{
+                                smonth=monthl.get(position);
+                                issmonth=true;
+
+                            }
+
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            year.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            syear=yearl.get(position);
+                            if(position==0) {
+                                syear = "";
+                                issyear=false;
+                            }
+                            else{
+                                syear=yearl.get(position);
+                                issyear=true;
+
+                            }
+
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "Nothing is selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int test=  savedata();
+                    if (test==2)
+                        msg.setText("Data validation error");
+                    else
+                        msg.setText(" ");
+
+
+                }
+
+
+            });
+
+            dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, AL);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            L.setAdapter(dataAdapter);
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS mydata(bdate date, ITEMNAME VARCHAR,ITEMVALUE INT, ITEMQTY INT);");
+
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    int savedata()
+    {
+        Integer totalcals=0;
+        try {
+
+            //LIKE 'B%'
+
+            //String A = "INSERT INTO items (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal/// + '"' + ");";
+            //mydatabase.execSQL(A);
+            if(!issmonth || !issyear)
+                return 3;
+
+            String mylike= "bdate like " + '"' + syear + "-" + smonth + "%" + '"' ;
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            Cursor resultSet = mydatabase.rawQuery("Select * from mydata  where " + mylike + "order by bdate", null);
+            int i = resultSet.getCount();
+            msg.setText("");
+            if(i==0) {
+                msg.setText("No record found");
+                AL.clear();
+                AL.add(" No RECORD FOUND");
+                L.setAdapter(dataAdapter);
+                return  0;
+
+            }
+
+            int j = 1;
+            Integer A;
+            Integer  B;
+            Integer C,D;
+
+            AL.clear();
+            String preday= " ";
+            Integer counter=0;
+            int testcount=0;
+            String X1, X2,X3,X4;
+            Integer totalweekdays=0;
+            Integer totalweekcals=0;
+            Integer totaldays=0;
+
+
+// if there is at least one record add first record outside loop
+            if (i >= 1) {
+                resultSet.moveToFirst();
+                AL.clear();
+                AL.add("Date                         Food        Calories");
+                X1 = resultSet.getString(0);
+                preday=X1;
+                X2 = resultSet.getString(1);
+                X3 = resultSet.getString(2);
+                X4 = resultSet.getString(3);
+                C=Integer.parseInt(X3);
+                D=Integer.parseInt(X4);
+                A= Integer.parseInt(X3)*Integer.parseInt(X4);
+
+                totalcals =totalcals+A;
+                totaldays++;
+                // for first record add calories and countdays
+                totalweekcals= totalweekcals+ A;
+                totalweekdays=totalweekdays+1;
+                // sum all calories
+
+                AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                // counts total records
+                counter=counter+1;
+
+
+                for (j = 1; j <= i - 1; j++) {
+                    resultSet.moveToNext();
+                    X1 = resultSet.getString(0);
+                    X2 = resultSet.getString(1);
+                    X3 = resultSet.getString(2);
+                    X4 = resultSet.getString(3);
+
+                    C=Integer.parseInt(X3);
+                    D=Integer.parseInt(X4);
+                    A= Integer.parseInt(X3)*Integer.parseInt(X4);
+                    counter++;
+
+                    totalcals =totalcals+A;
+                    if(X1.equals(preday) ) {
+                        AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                        totalweekcals = totalweekcals+A;
+
+                    }
+                    else {
+                        totaldays++;
+                         if(totalweekdays==7) {
+                             AL.add("Weektotal =" + totalweekcals.toString());
+                             AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                             totalweekdays = 1;
+                             totalweekcals = A;
+
+                         }
+                         else  {
+                             AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                             totalweekdays++;
+                             totalweekcals = totalweekcals + A;
+                         }
+
+                    }
+                    preday=X1;
+
+                    dataAdapter.notifyDataSetChanged();
+
+
+                }
+                dataAdapter.notifyDataSetChanged();
+            }
+
+            AL.add("Total Calories for Month:------       "+ totalcals.toString());
+            Integer avg=totalcals/totaldays;
+            AL.add("Total days ="+ totaldays.toString()+ "Avg Cals=" + avg.toString());
+        }
+        catch(Exception e)
+        {
+            msg.setText("Seelct All Fields");
+            AL.clear();
+            AL.add(" NO RECORD FOUND");
+            L.setAdapter(dataAdapter);
+
+            return 2;
+        }
+
+        return  0;
+
+    }
+
+}
+XML FILE 4:
+package com.example.teaching2;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ListView;
+import java.util.ArrayList;
+import android.widget.Button;
+import android.widget.EditText;
+public class Main4Activity extends AppCompatActivity {
+    ListView  L;
+    ArrayList<String> AL= new ArrayList<>();
+    Button b1;
+    String smonth= " ";
+    String syear= " ";
+    Spinner year;
+    TextView msg;
+    Spinner month;
+    boolean issmonth=false;
+    boolean issyear=false;
+    ArrayList<String> monthl;
+    ArrayList<String> yearl;
+
+    String query="";
+    ArrayAdapter<String> dataAdapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Integer counting;
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main4);
+            L = (ListView) findViewById(R.id.mylist);
+            year = (Spinner) findViewById(R.id.ed1);
+            month = (Spinner) findViewById(R.id.ed2);
+            b1 = (Button) findViewById(R.id.button51);
+
+            msg=(TextView) findViewById(R.id.v1);
+            Integer i;
+            monthl= new ArrayList<String>();
+            yearl=new ArrayList<String>();
+
+            monthl.add("Select Month");
+            for (i = 1; i <= 12; i++) {
+                String s= i.toString();
+                if(s.length()==1)
+                    s="0"+s;
+                monthl.add(s);
+            }
+            yearl.add("Select Year");
+            for (i = 2019; i <= 2050; i++) {
+                yearl.add(i.toString());
+            }
+            ArrayAdapter<String> dataAdaptermonth = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, monthl);
+            dataAdaptermonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            month.setAdapter(dataAdaptermonth);
+            ArrayAdapter<String> dataAdapteryear = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, yearl);
+            dataAdapteryear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            year.setAdapter(dataAdapteryear);
+            month.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+
+                            smonth=monthl.get(position);
+                            if(position==0) {
+                                smonth = "";
+                                issmonth=false;
+                            }
+                            else{
+                                smonth=monthl.get(position);
+                                issmonth=true;
+
+                            }
+
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "nothing selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            year.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(
+                                AdapterView<?> parent, View view, int position, long id) {
+                            Integer pos = position;
+                            Toast.makeText(getApplicationContext(), pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            syear=yearl.get(position);
+                            if(position==0) {
+                                syear = "";
+                                issyear=false;
+                            }
+                            else{
+                                syear=yearl.get(position);
+                                issyear=true;
+
+                            }
+
+
+                        }
+
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(getApplicationContext(), "Nothing is selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int test=  savedata();
+                    if (test==2)
+                        msg.setText("Data validation error");
+                    else
+                        msg.setText(" ");
+
+
+                }
+
+
+            });
+
+            dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, AL);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            L.setAdapter(dataAdapter);
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS mydata(bdate date, ITEMNAME VARCHAR,ITEMVALUE INT, ITEMQTY INT);");
+
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    int savedata()
+    {
+        Integer totalcals=0;
+        try {
+
+            //LIKE 'B%'
+
+            //String A = "INSERT INTO items (ITEMNAME,ITEMVALUE) values (" + '"' + item + '"' + "," + '"' + cal/// + '"' + ");";
+            //mydatabase.execSQL(A);
+            if(!issmonth || !issyear)
+                return 3;
+
+            String mylike= "bdate like " + '"' + syear + "-" + smonth + "%" + '"' ;
+            SQLiteDatabase mydatabase = openOrCreateDatabase("mydatabase", MODE_PRIVATE, null);
+            Cursor resultSet = mydatabase.rawQuery("Select * from mydata  where " + mylike + "order by bdate", null);
+            int i = resultSet.getCount();
+            msg.setText("");
+            if(i==0) {
+                msg.setText("No record found");
+                AL.clear();
+                AL.add(" No RECORD FOUND");
+                L.setAdapter(dataAdapter);
+                return  0;
+
+            }
+
+            int j = 1;
+            Integer A;
+            Integer  B;
+            Integer C,D;
+
+            AL.clear();
+            String preday= " ";
+            Integer counter=0;
+            int testcount=0;
+            String X1, X2,X3,X4;
+            Integer totalweekdays=0;
+            Integer totalweekcals=0;
+            Integer totaldays=0;
+
+
+// if there is at least one record add first record outside loop
+            if (i >= 1) {
+                resultSet.moveToFirst();
+                AL.clear();
+                AL.add("Date                         Food        Calories");
+                X1 = resultSet.getString(0);
+                preday=X1;
+                X2 = resultSet.getString(1);
+                X3 = resultSet.getString(2);
+                X4 = resultSet.getString(3);
+                C=Integer.parseInt(X3);
+                D=Integer.parseInt(X4);
+                A= Integer.parseInt(X3)*Integer.parseInt(X4);
+
+                totalcals =totalcals+A;
+                totaldays++;
+                // for first record add calories and countdays
+                totalweekcals= totalweekcals+ A;
+                totalweekdays=totalweekdays+1;
+                // sum all calories
+
+                AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                // counts total records
+                counter=counter+1;
+
+
+                for (j = 1; j <= i - 1; j++) {
+                    resultSet.moveToNext();
+                    X1 = resultSet.getString(0);
+                    X2 = resultSet.getString(1);
+                    X3 = resultSet.getString(2);
+                    X4 = resultSet.getString(3);
+
+                    C=Integer.parseInt(X3);
+                    D=Integer.parseInt(X4);
+                    A= Integer.parseInt(X3)*Integer.parseInt(X4);
+                    counter++;
+
+                    totalcals =totalcals+A;
+                    if(X1.equals(preday) ) {
+                        AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                        totalweekcals = totalweekcals+A;
+
+                    }
+                    else {
+                        totaldays++;
+                         if(totalweekdays==7) {
+                             AL.add("Weektotal =" + totalweekcals.toString());
+                             AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                             totalweekdays = 1;
+                             totalweekcals = A;
+
+                         }
+                         else  {
+                             AL.add(X1+ "  " + X2+   ": " +D.toString() + "X" + C.toString()+ "=     " + A.toString());
+                             totalweekdays++;
+                             totalweekcals = totalweekcals + A;
+                         }
+
+                    }
+                    preday=X1;
+
+                    dataAdapter.notifyDataSetChanged();
+
+
+                }
+                dataAdapter.notifyDataSetChanged();
+            }
+
+            AL.add("Total Calories for Month:------       "+ totalcals.toString());
+            Integer avg=totalcals/totaldays;
+            AL.add("Total days ="+ totaldays.toString()+ "Avg Cals=" + avg.toString());
+        }
+        catch(Exception e)
+        {
+            msg.setText("Seelct All Fields");
+            AL.clear();
+            AL.add(" NO RECORD FOUND");
+            L.setAdapter(dataAdapter);
+
+            return 2;
+        }
+
+        return  0;
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
